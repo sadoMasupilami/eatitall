@@ -1,5 +1,6 @@
 package at.fhjoanneum.airkoality.ui;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String FRAGMENT_LOCATIONS = "FragmentLocations";
     private static final String FRAGMENT_MAP = "FragmentMap";
 
+    private static final String PREF_KEY_FRAGMENT = "fragment";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,12 +44,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bnvMain);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         bottomNavigationView.setOnNavigationItemSelectedListener((menuItem) -> {
             switch (menuItem.getItemId()) {
                 case R.id.action_locations:
+                    prefs.edit().putString(PREF_KEY_FRAGMENT, FRAGMENT_LOCATIONS).apply();
                     switchToFragment(FRAGMENT_LOCATIONS);
                     break;
                 case R.id.action_map:
+                    prefs.edit().putString(PREF_KEY_FRAGMENT, FRAGMENT_MAP).apply();
                     switchToFragment(FRAGMENT_MAP);
                     break;
                 default:
@@ -57,14 +66,9 @@ public class MainActivity extends AppCompatActivity {
         locationListFragment = new LocationListFragment();
         mapFragment = new MapFragment();
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.add(R.id.flFragmentContainer, locationListFragment);
-        transaction.add(R.id.flFragmentContainer, mapFragment);
-        transaction.hide(locationListFragment);
-        transaction.hide(mapFragment);
-        transaction.commit();
-        switchToFragment(FRAGMENT_LOCATIONS);
+        String fragmentName = prefs.getString(PREF_KEY_FRAGMENT, FRAGMENT_LOCATIONS);
+
+        switchToFragment(fragmentName);
 
     }
 
@@ -73,12 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
         switch (fragmentName) {
             case FRAGMENT_LOCATIONS:
-                transaction.hide(mapFragment);
-                transaction.show(locationListFragment);
+                transaction.replace(R.id.flFragmentContainer, locationListFragment);
                 break;
             case FRAGMENT_MAP:
-                transaction.hide(locationListFragment);
-                transaction.show(mapFragment);
+                transaction.replace(R.id.flFragmentContainer, mapFragment);
                 break;
             default:
                 break;

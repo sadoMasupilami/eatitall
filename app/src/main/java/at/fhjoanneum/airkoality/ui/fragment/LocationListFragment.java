@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import at.fhjoanneum.airkoality.R;
+import at.fhjoanneum.airkoality.db.room.AirKoalityDB;
+import at.fhjoanneum.airkoality.db.room.LocationDAO;
 import at.fhjoanneum.airkoality.model.Location;
 import at.fhjoanneum.airkoality.ui.adapter.LocationListAdapter;
 
@@ -32,11 +34,14 @@ public class LocationListFragment extends Fragment implements LocationListAdapte
 
         List<Location> locations = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
+        LocationDAO locationDAO = AirKoalityDB.getInstance(getContext()).locationDAO();
+        for (int i = 0; i < 5; i++) {
             locations.add(new Location("Uhrturm " + i, "Graz", "Österreich"));
         }
 
-        LocationListAdapter locationListAdapter = new LocationListAdapter(locations, this);
+        locationDAO.addAll(locations);
+
+        LocationListAdapter locationListAdapter = new LocationListAdapter(locationDAO.getAll(), this);
         rvLocations.setAdapter(locationListAdapter);
         return view;
     }
