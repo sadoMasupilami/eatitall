@@ -24,26 +24,22 @@ import at.fhjoanneum.airkoality.ui.adapter.LocationListAdapter;
 
 public class LocationListFragment extends Fragment implements LocationListAdapter.LocationItemClickListener {
 
+    private RecyclerView rvLocations;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location_list, container, false);
 
-        RecyclerView rvLocations = view.findViewById(R.id.rvLocations);
+        rvLocations = view.findViewById(R.id.rvLocations);
         rvLocations.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<Location> locations = new ArrayList<>();
-
-        LocationDAO locationDAO = AirKoalityDB.getInstance(getContext()).locationDAO();
-        for (int i = 0; i < 5; i++) {
-            locations.add(new Location("Uhrturm " + i, "Graz", "Österreich"));
-        }
-
-        locationDAO.addAll(locations);
-
-        LocationListAdapter locationListAdapter = new LocationListAdapter(locationDAO.getAll(), this);
-        rvLocations.setAdapter(locationListAdapter);
         return view;
+    }
+
+    public void update(List<Location> locations) {
+        LocationListAdapter locationListAdapter = new LocationListAdapter(locations, this);
+        rvLocations.setAdapter(locationListAdapter);
     }
 
     @Override
