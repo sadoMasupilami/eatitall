@@ -79,6 +79,14 @@ public class MainActivity extends AppCompatActivity implements RequestCallback {
         locationListFragment = new LocationListFragment();
         mapFragment = new MapFragment();
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.flFragmentContainer, locationListFragment);
+        transaction.add(R.id.flFragmentContainer, mapFragment);
+        transaction.hide(locationListFragment);
+        transaction.hide(mapFragment);
+        transaction.commit();
+
         String fragmentName = prefs.getString(PREF_KEY_FRAGMENT, FRAGMENT_LOCATIONS);
 
         switchToFragment(fragmentName);
@@ -114,16 +122,15 @@ public class MainActivity extends AppCompatActivity implements RequestCallback {
                 }
             }
 
-            List<Location> finalLocations = locations;
             runOnUiThread(() -> {
                 progressDialog.dismiss();
-                updateFragments(finalLocations);
             });
+            updateFragments(locations);
         }).start();
     }
 
     private void updateFragments(List<Location> locations) {
-        locationListFragment.update(locations);
+        runOnUiThread(() -> locationListFragment.update(locations));
     }
 
     private List<Location> parseLocations(String json) throws JSONException {
@@ -149,10 +156,12 @@ public class MainActivity extends AppCompatActivity implements RequestCallback {
 
         switch (fragmentName) {
             case FRAGMENT_LOCATIONS:
-                transaction.replace(R.id.flFragmentContainer, locationListFragment);
+                transaction.hide(mapFragment);
+                transaction.show(locationListFragment);
                 break;
             case FRAGMENT_MAP:
-                transaction.replace(R.id.flFragmentContainer, mapFragment);
+                transaction.hide(locationListFragment);
+                transaction.show(mapFragment);
                 break;
             default:
                 break;

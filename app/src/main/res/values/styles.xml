@@ -15,4 +15,17 @@
         <item name="colorAccent">@color/secondaryColor</item>
     </style>
 
+    <style name="MeasurementValueText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="MeasurementLabel">
+        <item name="android:textColor">@color/primaryLightColor</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">right|center_vertical</item>
+    </style>
+
 </resources>

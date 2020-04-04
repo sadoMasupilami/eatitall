@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text=""
+        android:textColor="@color/primaryLightColor"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        app:cardBackgroundColor="@color/secondaryDarkColor">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <TableRow
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <TextView
+                    style="@style/MeasurementLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/measurement_label_size"
+                    android:layout_weight="1"
+                    android:text="BC" />
+
+                <TextView
+                    android:id="@+id/tvBCvalue"
+                    style="@style/MeasurementValueText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </TableRow>
+
+            <TableRow
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <TextView
+                    style="@style/MeasurementLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/measurement_label_size"
+                    android:layout_weight="1"
+                    android:text="CO" />
+
+                <TextView
+                    android:id="@+id/tvCOvalue"
+                    style="@style/MeasurementValueText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </TableRow>
+
+            <TableRow
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <TextView
+                    style="@style/MeasurementLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/measurement_label_size"
+                    android:layout_weight="1"
+                    android:text="O3" />
+
+                <TextView
+                    android:id="@+id/tvO3value"
+                    style="@style/MeasurementValueText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </TableRow>
+
+            <TableRow
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <TextView
+                    style="@style/MeasurementLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/measurement_label_size"
+                    android:layout_weight="1"
+                    android:text="PM10" />
+
+                <TextView
+                    android:id="@+id/tvPM10value"
+                    style="@style/MeasurementValueText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </TableRow>
+
+            <TableRow
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <TextView
+                    style="@style/MeasurementLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/measurement_label_size"
+                    android:layout_weight="1"
+                    android:text="PM25" />
+
+                <TextView
+                    android:id="@+id/tvPM25value"
+                    style="@style/MeasurementValueText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </TableRow>
+
+            <TableRow
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <TextView
+                    style="@style/MeasurementLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/measurement_label_size"
+                    android:layout_weight="1"
+                    android:text="SO2" />
+
+                <TextView
+                    android:id="@+id/tvSO2value"
+                    style="@style/MeasurementValueText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </TableRow>
+
+            <TableRow
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <TextView
+                    style="@style/MeasurementLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/measurement_label_size"
+                    android:layout_weight="1"
+                    android:text="NO2" />
+
+                <TextView
+                    android:id="@+id/tvNO2value"
+                    style="@style/MeasurementValueText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </TableRow>
+        </TableLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

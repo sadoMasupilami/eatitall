@@ -1,5 +1,6 @@
 package at.fhjoanneum.airkoality.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,13 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import at.fhjoanneum.airkoality.R;
-import at.fhjoanneum.airkoality.db.room.AirKoalityDB;
-import at.fhjoanneum.airkoality.db.room.LocationDAO;
 import at.fhjoanneum.airkoality.model.Location;
+import at.fhjoanneum.airkoality.ui.MeasurementActivity;
 import at.fhjoanneum.airkoality.ui.adapter.LocationListAdapter;
 
 public class LocationListFragment extends Fragment implements LocationListAdapter.LocationItemClickListener {
@@ -44,7 +43,9 @@ public class LocationListFragment extends Fragment implements LocationListAdapte
 
     @Override
     public void onLocationItemClicked(Location location) {
-        Toast.makeText(getContext(), location.getLocation(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), MeasurementActivity.class);
+        intent.putExtra("location_name", location.getLocation());
+        startActivity(intent);
     }
 
     @Override
