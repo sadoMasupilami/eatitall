@@ -3,6 +3,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
 
     <application
@@ -12,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.MainActivity"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.SplashActivity"
             android:noHistory="true"
@@ -24,6 +28,8 @@
         </activity>
 
         <activity android:name=".ui.MeasurementActivity"></activity>
+
+        <service android:name=".service.LocationService"/>
 
     </application>
 </manifest>

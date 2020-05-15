@@ -1,15 +1,23 @@
 package at.fhjoanneum.airkoality.ui;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,6 +40,7 @@ import at.fhjoanneum.airkoality.db.room.AirKoalityDB;
 import at.fhjoanneum.airkoality.model.Location;
 import at.fhjoanneum.airkoality.network.HttpsGetTask;
 import at.fhjoanneum.airkoality.network.RequestCallback;
+import at.fhjoanneum.airkoality.service.LocationService;
 import at.fhjoanneum.airkoality.ui.adapter.LocationListAdapter;
 import at.fhjoanneum.airkoality.ui.fragment.LocationListFragment;
 import at.fhjoanneum.airkoality.ui.fragment.MapFragment;
@@ -103,6 +112,50 @@ public class MainActivity extends AppCompatActivity implements RequestCallback {
     public void onRequestStart() {
         progressDialog.setMessage("Wird geladen...");
         progressDialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_start_service:
+                startLocationService();
+                return true;
+            case R.id.action_stop_service:
+                stopLocationService();
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void startLocationService() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(this, LocationService.class);
+            startService(intent);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 123);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 123) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startLocationService();
+            }
+        }
+    }
+
+    private void stopLocationService() {
+        Intent intent = new Intent(this, LocationService.class);
+        stopService(intent);
     }
 
     @Override
