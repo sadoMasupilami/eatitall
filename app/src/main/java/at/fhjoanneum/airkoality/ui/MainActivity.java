@@ -105,7 +105,18 @@ public class MainActivity extends AppCompatActivity implements RequestCallback {
 
     private void fetchLocations() {
         HttpsGetTask httpsGetTask = new HttpsGetTask(this);
-        httpsGetTask.execute("https://api.openaq.org/v1/locations?country=AT");
+
+        String request;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        float latitude = preferences.getFloat("latitude", -1000);
+        float longitude = preferences.getFloat("longitude", -1000);
+
+        if (latitude == -1000 || longitude == -1000) {
+            request = "https://api.openaq.org/v1/locations?country=AT";
+        } else {
+            request = String.format("https://api.openaq.org/v1/locations?coordinates=%f,%f&radius=200000&limit=10000", latitude, longitude);
+        }
+        httpsGetTask.execute(request);
     }
 
     @Override
@@ -129,6 +140,9 @@ public class MainActivity extends AppCompatActivity implements RequestCallback {
                 return true;
             case R.id.action_stop_service:
                 stopLocationService();
+                return true;
+            case R.id.action_refresh:
+                fetchLocations();
                 return true;
             default:
                 return false;
@@ -183,7 +197,10 @@ public class MainActivity extends AppCompatActivity implements RequestCallback {
     }
 
     private void updateFragments(List<Location> locations) {
-        runOnUiThread(() -> locationListFragment.update(locations));
+        runOnUiThread(() -> {
+            locationListFragment.update(locations);
+            mapFragment.addMapMarkers(locations);
+        });
     }
 
     private List<Location> parseLocations(String json) throws JSONException {
@@ -197,7 +214,11 @@ public class MainActivity extends AppCompatActivity implements RequestCallback {
             String city = locationResult.getString("city");
             String country = locationResult.getString("country");
 
-            Location location = new Location(locationName, city, country);
+            JSONObject coordinates = locationResult.getJSONObject("coordinates");
+            double latitude = coordinates.getDouble("latitude");
+            double longitude = coordinates.getDouble("longitude");
+
+            Location location = new Location(locationName, city, country, latitude, longitude);
             locations.add(location);
         }
         return locations;

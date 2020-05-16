@@ -4,12 +4,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telecom.ConnectionService;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import at.fhjoanneum.airkoality.R;
@@ -25,6 +33,7 @@ import at.fhjoanneum.airkoality.model.LatestMeasurements;
 import at.fhjoanneum.airkoality.model.Measurement;
 import at.fhjoanneum.airkoality.network.HttpsGetTask;
 import at.fhjoanneum.airkoality.network.RequestCallback;
+import at.fhjoanneum.airkoality.util.Util;
 
 public class MeasurementActivity extends AppCompatActivity implements RequestCallback {
 
@@ -90,6 +99,37 @@ public class MeasurementActivity extends AppCompatActivity implements RequestCal
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.measurement_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_share) {
+            try {
+                View rootView = findViewById(R.id.rootView);
+                Bitmap bitmap = Util.getBitmapFromView(rootView);
+                Uri uri = Util.savePng(this, bitmap, "measurements.png");
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                intent.putExtra(Intent.EXTRA_TEXT, "Measurements from " + locationName);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Airkoality Measurements");
+                intent.setType("image/png");
+
+                startActivity(intent);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
     }
 
     private void fetchLatestMeasurements(String locationName) {

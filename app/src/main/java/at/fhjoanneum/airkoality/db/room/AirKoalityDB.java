@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 import at.fhjoanneum.airkoality.model.LatestMeasurements;
 import at.fhjoanneum.airkoality.model.Location;
 
-@Database(entities = {Location.class, LatestMeasurements.class}, version = 3)
+@Database(entities = {Location.class, LatestMeasurements.class}, version = 4)
 @TypeConverters({Converters.class})
 public abstract class AirKoalityDB extends RoomDatabase {
     private static AirKoalityDB instance;

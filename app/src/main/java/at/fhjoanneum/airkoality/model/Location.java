@@ -15,18 +15,25 @@ public class Location {
     private String city;
     @ColumnInfo(name = "country")
     private String country;
+    @ColumnInfo(name = "latitude")
+    private double latitude;
+    @ColumnInfo(name = "longitude")
+    private double longitude;
 
-    public Location(String location, String city, String country) {
+    public Location(@NonNull String location, String city, String country, double latitude, double longitude) {
         this.location = location;
         this.city = city;
         this.country = country;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
+    @NonNull
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(@NonNull String location) {
         this.location = location;
     }
 
@@ -44,5 +51,21 @@ public class Location {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }
