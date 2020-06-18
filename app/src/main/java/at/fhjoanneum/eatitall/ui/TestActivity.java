@@ -20,10 +20,9 @@ import java.util.List;
 
 import at.fhjoanneum.eatitall.R;
 import at.fhjoanneum.eatitall.model.Meal;
+import at.fhjoanneum.eatitall.model.MealContainer;
 
 public class TestActivity extends AppCompatActivity {
-
-    private List<Meal> myMeals;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,16 +37,16 @@ public class TestActivity extends AppCompatActivity {
                 .addQueryParameter("i", "pork")
                 .setPriority(Priority.LOW)
                 .build()
-                .getAsObjectList(Meal.class, new ParsedRequestListener<List<Meal>>() {
+                .getAsObject(MealContainer.class, new ParsedRequestListener<MealContainer>() {
                     @Override
-                    public void onResponse(List<Meal> meals) {
-                        myMeals = meals;
-                        textView.setText("success");
+                    public void onResponse(MealContainer mealContainer) {
+                        List<Meal> myMeals = mealContainer.getMeals();
+                        textView.setText(myMeals.get(1).toString());
                     }
 
                     @Override
                     public void onError(ANError anError) {
-                        textView.setText(anError.getMessage());
+                        textView.setText("0");
                     }
                 });
     }
