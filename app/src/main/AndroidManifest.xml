@@ -45,6 +45,8 @@
 
         <activity android:name="at.fhjoanneum.eatitall.ui.MeasurementActivity" />
 
+        <activity android:name="at.fhjoanneum.eatitall.ui.TestActivity" />
+
         <service android:name="at.fhjoanneum.eatitall.service.LocationService" />
 
     </application>
