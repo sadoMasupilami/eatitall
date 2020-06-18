@@ -11,13 +11,19 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
+import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.androidnetworking.interfaces.StringRequestListener;
 
 import org.json.JSONArray;
 
+import java.util.List;
+
 import at.fhjoanneum.eatitall.R;
+import at.fhjoanneum.eatitall.model.Meal;
 
 public class TestActivity extends AppCompatActivity {
+
+    private List<Meal> myMeals;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,10 +38,11 @@ public class TestActivity extends AppCompatActivity {
                 .addQueryParameter("i", "pork")
                 .setPriority(Priority.LOW)
                 .build()
-                .getAsString(new StringRequestListener() {
+                .getAsObjectList(Meal.class, new ParsedRequestListener<List<Meal>>() {
                     @Override
-                    public void onResponse(String response) {
-                        textView.setText(response);
+                    public void onResponse(List<Meal> meals) {
+                        myMeals = meals;
+                        textView.setText("success");
                     }
 
                     @Override
