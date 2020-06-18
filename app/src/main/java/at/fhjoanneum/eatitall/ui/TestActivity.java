@@ -1,6 +1,7 @@
 package at.fhjoanneum.eatitall.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
+import com.androidnetworking.interfaces.StringRequestListener;
 
 import org.json.JSONArray;
 
@@ -25,14 +27,15 @@ public class TestActivity extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.test_textView);
 
+//        AndroidNetworking.get("https://www.themealdb.com/api/json/v1/1/filter.php")
         AndroidNetworking.get("https://www.themealdb.com/api/json/v1/1/filter.php")
                 .addQueryParameter("i", "pork")
-                .setPriority(Priority.HIGH)
+                .setPriority(Priority.LOW)
                 .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
+                .getAsString(new StringRequestListener() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        textView.setText("success");
+                    public void onResponse(String response) {
+                        textView.setText(response);
                     }
 
                     @Override
@@ -40,6 +43,5 @@ public class TestActivity extends AppCompatActivity {
                         textView.setText(anError.getMessage());
                     }
                 });
-
     }
 }
