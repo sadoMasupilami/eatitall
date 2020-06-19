@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:textSize="25sp"
-            tools:text="Name"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:text="Name" />
 
         <com.androidnetworking.widget.ANImageView
             android:id="@+id/test_iv"

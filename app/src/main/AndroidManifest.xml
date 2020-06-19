@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="at.fhjoanneum.eatitall">
 
@@ -7,14 +8,18 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
-
     <application
-        android:name="at.fhjoanneum.eatitall.AirKoalityApplication"
+        android:name=".AirKoalityApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".ui.MealDetail"
+            android:parentActivityName=".ui.TestActivity"
+            android:label="Meal Detail"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -31,23 +36,22 @@
         </provider>
 
         <activity
-            android:name="at.fhjoanneum.eatitall.ui.MainActivity"
+            android:name=".ui.MainActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="at.fhjoanneum.eatitall.ui.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:noHistory="true"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.MeasurementActivity" />
+        <activity android:name=".ui.TestActivity" />
 
-        <activity android:name="at.fhjoanneum.eatitall.ui.MeasurementActivity" />
-
-        <activity android:name="at.fhjoanneum.eatitall.ui.TestActivity" />
-
-        <service android:name="at.fhjoanneum.eatitall.service.LocationService" />
-
+        <service android:name=".service.LocationService" />
     </application>
+
 </manifest>
