@@ -70,9 +70,9 @@ public class TestActivity extends AppCompatActivity {
                         if (myMeals != null) {
                             textView.setText(myMeals.get(0).toString());
                             Toast.makeText(getApplicationContext(), "recipes found: " + myMeals.size(), Toast.LENGTH_SHORT).show();
-                            mealAdapter = new MealAdapter(getApplicationContext(), myMeals);
+                            mealAdapter = new MealAdapter(view.getContext(), myMeals);
                             recyclerView.setAdapter(mealAdapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                            recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
                         } else {
                             Toast.makeText(getApplicationContext(), "no recipes found", Toast.LENGTH_SHORT).show();
                             textView.setText("");
