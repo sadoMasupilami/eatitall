@@ -49,7 +49,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MeasurementActivity" />
-        <activity android:name=".ui.TestActivity" />
+        <activity android:name=".ui.TestActivity"
+            android:launchMode="singleTask"/>
 
         <service android:name=".service.LocationService" />
     </application>
