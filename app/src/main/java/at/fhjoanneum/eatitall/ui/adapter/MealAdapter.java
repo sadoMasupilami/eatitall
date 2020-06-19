@@ -37,7 +37,6 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
     @Override
     public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
         holder.name.setText(meals.get(position).getStrMeal());
-        holder.id.setText(meals.get(position).getIdMeal());
         holder.imageView.setDefaultImageResId(R.drawable.food);
         holder.imageView.setImageUrl(meals.get(position).getStrMealThumb());
     }
@@ -49,13 +48,12 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
 
     public static class MealViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, id;
+        TextView name;
         ANImageView imageView;
 
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tvMealName);
-            id = itemView.findViewById(R.id.tvMealId);
             imageView = itemView.findViewById(R.id.test_iv);
         }
     }
