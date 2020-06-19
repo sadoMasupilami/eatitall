@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.androidnetworking.widget.ANImageView;
 
 import java.util.List;
 
@@ -36,6 +39,8 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
     public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
         holder.name.setText(meals.get(position).getStrMeal());
         holder.id.setText(meals.get(position).getIdMeal());
+        holder.imageView.setDefaultImageResId(R.drawable.food);
+        holder.imageView.setImageUrl(meals.get(position).getStrMealThumb());
     }
 
     @Override
@@ -46,11 +51,13 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
     public class MealViewHolder extends RecyclerView.ViewHolder {
 
         TextView name, id;
+        ANImageView imageView;
 
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tvMealName);
             id = itemView.findViewById(R.id.tvMealId);
+            imageView = itemView.findViewById(R.id.test_iv);
         }
     }
 }
