@@ -26,7 +26,6 @@ import at.fhjoanneum.eatitall.ui.adapter.MealAdapter;
 
 public class TestActivity extends AppCompatActivity {
 
-    TextView textView;
     EditText editText;
     RecyclerView recyclerView;
     MealAdapter mealAdapter;
@@ -38,14 +37,10 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         AndroidNetworking.initialize(getApplicationContext());
 
-        textView = findViewById(R.id.test_textView);
         editText = findViewById(R.id.test_editText);
         recyclerView = findViewById(R.id.test_recycler);
 
         myMeals = new ArrayList<>();
-        myMeals.add(new Meal("Hendl Klug", "www.hendl.at", "123"));
-        myMeals.add(new Meal("Hendl Klug", "www.hendl.at", "123"));
-        myMeals.add(new Meal("Hendl Klug", "www.hendl.at", "123"));
         mealAdapter = new MealAdapter(this, myMeals);
         recyclerView.setAdapter(mealAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -68,15 +63,14 @@ public class TestActivity extends AppCompatActivity {
                     public void onResponse(MealContainer mealContainer) {
                         myMeals = mealContainer.getMeals();
                         if (myMeals != null) {
-                            textView.setText(myMeals.get(0).toString());
                             Toast.makeText(getApplicationContext(), "recipes found: " + myMeals.size(), Toast.LENGTH_SHORT).show();
-                            mealAdapter = new MealAdapter(view.getContext(), myMeals);
-                            recyclerView.setAdapter(mealAdapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
                         } else {
                             Toast.makeText(getApplicationContext(), "no recipes found", Toast.LENGTH_SHORT).show();
-                            textView.setText("");
+                            myMeals = new ArrayList<>();
                         }
+                        mealAdapter = new MealAdapter(view.getContext(), myMeals);
+                        recyclerView.setAdapter(mealAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
                     }
 
                     @Override
