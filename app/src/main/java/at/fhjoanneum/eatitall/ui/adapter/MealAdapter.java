@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,7 +47,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         return meals.size();
     }
 
-    public class MealViewHolder extends RecyclerView.ViewHolder {
+    public static class MealViewHolder extends RecyclerView.ViewHolder {
 
         TextView name, id;
         ANImageView imageView;
