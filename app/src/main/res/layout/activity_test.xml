@@ -4,10 +4,28 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/test_editText"
+        android:layout_width="394dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="Ingredient"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/test_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="search"
+        android:text="Search" />
+
     <TextView
         android:id="@+id/test_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
         tools:text="I am Test" />
+
 </LinearLayout>

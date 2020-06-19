@@ -1,8 +1,10 @@
 package at.fhjoanneum.eatitall.ui;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,11 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.ParsedRequestListener;
-import com.androidnetworking.interfaces.StringRequestListener;
-
-import org.json.JSONArray;
 
 import java.util.List;
 
@@ -24,28 +22,42 @@ import at.fhjoanneum.eatitall.model.MealContainer;
 
 public class TestActivity extends AppCompatActivity {
 
+    TextView textView;
+    EditText editText;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         AndroidNetworking.initialize(getApplicationContext());
 
-        TextView textView = findViewById(R.id.test_textView);
+        textView = findViewById(R.id.test_textView);
+        editText = findViewById(R.id.test_editText);
+    }
 
-//        AndroidNetworking.get("https://www.themealdb.com/api/json/v1/1/filter.php")
+    public void search(View view) {
+        String ingredient = editText.getText().toString();
+
         AndroidNetworking.get("https://www.themealdb.com/api/json/v1/1/filter.php")
-                .addQueryParameter("i", "pork")
-                .setPriority(Priority.LOW)
+                .addQueryParameter("i", ingredient)
+                .setPriority(Priority.HIGH)
                 .build()
                 .getAsObject(MealContainer.class, new ParsedRequestListener<MealContainer>() {
                     @Override
                     public void onResponse(MealContainer mealContainer) {
                         List<Meal> myMeals = mealContainer.getMeals();
-                        textView.setText(myMeals.get(1).toString());
+                        if (myMeals != null) {
+                            textView.setText(myMeals.get(0).toString());
+                            Toast.makeText(getApplicationContext(), "recipes found: " + myMeals.size(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "no recipes found", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onError(ANError anError) {
+                        Toast.makeText(getApplicationContext(), "ERROR: " + anError.getMessage(), Toast.LENGTH_LONG).show();
                         textView.setText("0");
                     }
                 });
