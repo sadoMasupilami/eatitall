@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity implements RequestCallback {
 
         bottomNavigationView.setOnNavigationItemSelectedListener((menuItem) -> {
             switch (menuItem.getItemId()) {
-                case R.id.action_locations:
+                case R.id.action_favourite:
                     prefs.edit().putString(PREF_KEY_FRAGMENT, FRAGMENT_LOCATIONS).apply();
                     switchToFragment(FRAGMENT_LOCATIONS);
                     break;
-                case R.id.action_map:
+                case R.id.action_search:
                     prefs.edit().putString(PREF_KEY_FRAGMENT, FRAGMENT_MAP).apply();
                     switchToFragment(FRAGMENT_MAP);
                     break;
