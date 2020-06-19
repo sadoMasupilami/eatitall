@@ -71,9 +71,9 @@ public class SearchActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "no recipes found", Toast.LENGTH_SHORT).show();
                             myMeals = new ArrayList<>();
                         }
-                        mealAdapter = new MealAdapter(view.getContext(), myMeals);
+                        mealAdapter = new MealAdapter(SearchActivity.this, myMeals);
                         recyclerView.setAdapter(mealAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                        recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
                     }
 
                     @Override
