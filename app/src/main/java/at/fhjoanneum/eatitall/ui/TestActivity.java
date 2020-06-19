@@ -59,7 +59,7 @@ public class TestActivity extends AppCompatActivity {
         }
 
         AndroidNetworking.get("https://www.themealdb.com/api/json/v1/1/filter.php")
-                .addQueryParameter("i", ingredient)
+                .addQueryParameter("i", ingredient.replace(" ", "_"))
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsObject(MealContainer.class, new ParsedRequestListener<MealContainer>() {

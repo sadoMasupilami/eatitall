@@ -13,7 +13,8 @@
         android:hint="Ingredient"
         android:inputType="textPersonName"
         android:padding="10dp"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:autofillHints="Enter ingredient here" />
 
     <Button
         android:id="@+id/test_button"
